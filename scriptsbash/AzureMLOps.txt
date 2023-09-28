@@ -1,0 +1,44 @@
+
+# Install Python package
+pip install azure-ai-ml
+
+#################################################
+# Azure CLI
+#################################################
+az ml compute create --name aml-cluster --size STANDARD_DS3_v2 --min-instances 0 --max-instances 5 --type AmlCompute --resource-group my-resource-group --workspace-name my-workspace
+az ml compute create --file compute.yml --resource-group my-resource-group --workspace-name my-workspace
+
+#################################################
+# YAML
+#################################################
+$schema: https://azuremlschemas.azureedge.net/latest/amlCompute.schema.json 
+name: aml-cluster
+type: amlcompute
+size: STANDARD_DS3_v2
+min_instances: 0
+max_instances: 5
+
+#################################################
+# Python #
+#################################################
+from azure.ai.ml import MLClient
+from azure.identity import DefaultAzureCredential
+
+ml_client = MLClient(
+    DefaultAzureCredential(), subscription_id, resource_group, workspace
+)
+
+from azure.ai.ml import command
+
+# configure job
+job = command(
+    code="./src",
+    command="python train.py",
+    environment="AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest",
+    compute="aml-cluster",
+    experiment_name="train-model"
+)
+
+# connect to workspace and submit job
+returned_job = ml_client.create_or_update(job)
+

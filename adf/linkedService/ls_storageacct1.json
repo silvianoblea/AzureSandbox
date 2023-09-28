@@ -1,0 +1,11 @@
+{
+    "name": "ls_storageacct1",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureBlobFS",
+        "typeProperties": {
+            "url": "https://sibleajrstorageacct1.dfs.core.windows.net/"
+        }
+    }
+}

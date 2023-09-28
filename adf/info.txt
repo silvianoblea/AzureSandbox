@@ -1,0 +1,6 @@
+selected resource name:		dp_useruploads_customers_to_raw
+selected resource type:		pipeline
+factory name:			sibleajradf
+factory location:		eastus2
+subscription id:		183ace6d-7e75-4a48-a8f2-5e44222cf550
+time of download (UTC):		Mon, 17 Oct 2022 19:48:13 GMT

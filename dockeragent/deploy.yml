@@ -1,0 +1,44 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: vs-agent
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vsts
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": windows
+      containers: 
+      - name: vs-agent
+        image: sbjacr.azurecr.io/buildagent:v1
+        env:
+          - name: AZP_URL
+            valueFrom:
+              secretKeyRef:
+                name: vsts-token-az
+                key: AZP_URL
+          - name: AZP_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: vsts-token-az1
+                key: AZP_TOKEN
+          #- name: AZP_AGENT_NAME
+          #  valueFrom:
+          #    secretKeyRef:
+          #      name: vsts-token-az
+          #      key: AZP_AGENT_NAME                
+          - name: AZP_POOL
+            value: {AGENT_POOL_NAME}
+      imagePullSecrets:
+      - name: password
+      volumes:
+      - name: docker-volume
+        hostPath:
+          path: /var/run/docker.sock
+      volumes:
+      - name: docker-volume
+        hostPath:
+          path: /var/run/docker.sock

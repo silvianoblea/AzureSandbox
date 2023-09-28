@@ -1,0 +1,19 @@
+{
+    "name": "ds_userupload_awcustomer_binary",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "ls_storageacct1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Binary",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "folderPath": "AdventureWorksCustomers",
+                "fileSystem": "userupload"
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,80 @@
+{
+    "name": "df_raw_useruploads_customers_to_aw",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "ds_raw_useruploads_customers_csv",
+                        "type": "DatasetReference"
+                    },
+                    "name": "srcrawawcustomer"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "ds_aw_customers",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sinkawcustomers",
+                    "description": "Export data "
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "filter"
+                }
+            ],
+            "scriptLines": [
+                "source(output(",
+                "          Title as string,",
+                "          FirstName as string,",
+                "          MiddleName as string,",
+                "          LastName as string,",
+                "          Suffix as string,",
+                "          CompanyName as string,",
+                "          SalesPerson as string,",
+                "          EmailAddress as string,",
+                "          Phone as string,",
+                "          PasswordHash as string,",
+                "          PasswordSalt as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> srcrawawcustomer",
+                "srcrawawcustomer filter(not(isNull(EmailAddress))) ~> filter",
+                "filter sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     input(",
+                "          CustomerID as integer,",
+                "          NameStyle as boolean,",
+                "          Title as string,",
+                "          FirstName as string,",
+                "          MiddleName as string,",
+                "          LastName as string,",
+                "          Suffix as string,",
+                "          CompanyName as string,",
+                "          SalesPerson as string,",
+                "          EmailAddress as string,",
+                "          Phone as string,",
+                "          PasswordHash as string,",
+                "          PasswordSalt as string,",
+                "          rowguid as string,",
+                "          ModifiedDate as timestamp",
+                "     ),",
+                "     deletable:false,",
+                "     insertable:true,",
+                "     updateable:false,",
+                "     upsertable:false,",
+                "     format: 'table',",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true,",
+                "     errorHandlingOption: 'stopOnFirstError',",
+                "     preCommands: [],",
+                "     postCommands: []) ~> sinkawcustomers"
+            ]
+        }
+    }
+}

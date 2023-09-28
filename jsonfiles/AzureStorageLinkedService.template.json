@@ -1,0 +1,8 @@
+{
+    "annotations": [],
+    "type": "AzureBlobStorage",
+    "typeProperties": {
+        "serviceEndpoint": "<TOKEN_BLOBSTORAGE_ENDPOINT>",
+         "accountKind": "StorageV2"
+     }
+}

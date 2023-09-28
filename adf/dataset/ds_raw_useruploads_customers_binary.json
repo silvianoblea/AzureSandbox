@@ -1,0 +1,19 @@
+{
+    "name": "ds_raw_useruploads_customers_binary",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "ls_storageacct1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Binary",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "folderPath": "useruploads/customers",
+                "fileSystem": "raw"
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

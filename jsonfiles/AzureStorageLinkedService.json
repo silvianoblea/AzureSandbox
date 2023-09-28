@@ -1,0 +1,8 @@
+{
+    "annotations": [],
+    "type": "AzureBlobStorage",
+    "typeProperties": {
+        "serviceEndpoint": "https://sibleajrstorageacct1.blob.core.windows.net/",
+         "accountKind": "StorageV2"
+     }
+}

@@ -1,0 +1,9 @@
+{
+   "category": "ActivityRuns",
+   "categoryGroup": null,
+   "enabled": true,
+   "retentionPolicy": {
+      "days": 0,
+      "enabled": false
+   }
+}

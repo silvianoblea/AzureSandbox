@@ -1,0 +1,22 @@
+{
+    "now": "2022-10-17T19:48:13.904Z",
+    "perfNow": 8219158.7,
+    "diagnosticCorrelation": "30bef377-4a23-487f-a45c-9cd83a709a85",
+    "source": "DownloadSupportFiles",
+    "environment": {
+        "productName": "adf",
+        "buildVersion": "1.0.101322.3",
+        "environmentType": 3,
+        "resourceName": "sibleajradf",
+        "resourceRegion": "eastus2",
+        "resourceGroup": "rgsibleajr_infra",
+        "subscriptionId": "183ace6d-7e75-4a48-a8f2-5e44222cf550",
+        "sessionId": "DQowK",
+        "operationId": "/zOnu",
+        "gitType": "live"
+    },
+    "additionalInfo": {
+        "selectedResource": "dp_useruploads_customers_to_raw",
+        "selectedResourceType": "pipeline"
+    }
+}

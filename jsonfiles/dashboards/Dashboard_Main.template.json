@@ -1,0 +1,611 @@
+{
+  "properties": {
+    "lenses": {
+      "0": {
+        "order": 0,
+        "parts": {
+          "0": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 2,
+              "rowSpan": 2
+            },
+            "metadata": {
+              "inputs": [],
+              "type": "Extension/Microsoft_Azure_Billing/PartType/SubscriptionsBladePinnedPart"
+            }
+          },
+          "1": {
+            "position": {
+              "x": 2,
+              "y": 0,
+              "colSpan": 2,
+              "rowSpan": 1
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "selectedMenuItemId",
+                  "value": "",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/GalleryTile"
+            }
+          },
+          "2": {
+            "position": {
+              "x": 4,
+              "y": 0,
+              "colSpan": 2,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "inputs": [],
+              "type": "Extension/Microsoft_Azure_Security/PartType/SecurityMetricGalleryTileViewModel"
+            }
+          },
+          "3": {
+            "position": {
+              "x": 6,
+              "y": 0,
+              "colSpan": 8,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "filter",
+                  "isOptional": true
+                },
+                {
+                  "name": "resourceType",
+                  "value": "Microsoft.KeyVault/vaults"
+                },
+                {
+                  "name": "kind",
+                  "isOptional": true
+                },
+                {
+                  "name": "view",
+                  "value": {
+                    "id": "14002a2e-6a85-4255-a16b-da4a314ef091",
+                    "name": "14002a2e-6a85-4255-a16b-da4a314ef091",
+                    "filterFacets": [
+                      {
+                        "key": "resourceGroup",
+                        "uniqueId": "14002a2e-6a85-4255-a16b-da4a314ef08d",
+                        "display": "Resource group",
+                        "operator": 1,
+                        "isAllValues": true,
+                        "facetKind": 1
+                      },
+                      {
+                        "key": "locationDisplayName",
+                        "uniqueId": "14002a2e-6a85-4255-a16b-da4a314ef08e",
+                        "display": "Location",
+                        "operator": 1,
+                        "isAllValues": true,
+                        "facetKind": 1
+                      }
+                    ],
+                    "groupByValue": "",
+                    "sortedColumns": [
+                      {
+                        "sortBy": "name",
+                        "order": 1,
+                        "castFunction": 2
+                      }
+                    ],
+                    "showAll": false,
+                    "gridColumns": [
+                      {
+                        "id": "assetType",
+                        "name": "Type",
+                        "description": "Display name of the resource type.",
+                        "visible": true,
+                        "index": 0
+                      },
+                      {
+                        "id": "resourceGroup",
+                        "name": "Resource group",
+                        "visible": true,
+                        "index": 1
+                      },
+                      {
+                        "id": "location",
+                        "name": "Location",
+                        "description": "The supported Azure location where the resource exists.",
+                        "visible": true,
+                        "index": 2
+                      },
+                      {
+                        "id": "subscription",
+                        "name": "Subscription",
+                        "visible": true,
+                        "index": 3
+                      },
+                      {
+                        "id": "tagsArray",
+                        "name": "Tags",
+                        "visible": true,
+                        "index": 4
+                      }
+                    ],
+                    "gridColumnWidths": {
+                      "assetType": "100fr",
+                      "resourceGroup": "100fr",
+                      "location": "100fr",
+                      "subscription": "100fr",
+                      "tagsArray": "100fr"
+                    },
+                    "currentView": 1,
+                    "visualizationId": "location",
+                    "visualizationType": 4,
+                    "visualizationThreshold": 1
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/BrowseResourceTile"
+            }
+          },
+          "4": {
+            "position": {
+              "x": 14,
+              "y": 0,
+              "colSpan": 7,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "Resources\r\n| where type == 'microsoft.compute/virtualmachines'\r\n| extend\r\n\tJoinID = toupper(id),\r\n\tOSName = tostring(properties.osProfile.computerName),\r\n\tOSType = tostring(properties.storageProfile.osDisk.osType),\r\n\tVMSize = tostring(properties.hardwareProfile.vmSize)\r\n| join kind=leftouter(\r\n\tResources\r\n\t| where type == 'microsoft.compute/virtualmachines/extensions'\r\n\t| extend \r\n\t\tVMId = toupper(substring(id, 0, indexof(id, '/extensions'))),\r\n\t\tExtensionName = name\r\n) on $left.JoinID == $right.VMId\r\n| summarize Extensions = make_list(ExtensionName) by id, OSName, OSType, VMSize\r\n| order by tolower(OSName) asc",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {},
+              "partHeader": {
+                "title": "List Extensions on VMs.",
+                "subtitle": ""
+              }
+            }
+          },
+          "5": {
+            "position": {
+              "x": 2,
+              "y": 1,
+              "colSpan": 2,
+              "rowSpan": 1
+            },
+            "metadata": {
+              "inputs": [],
+              "type": "Extension/Microsoft_Azure_Health/PartType/ServiceIssuesPinnedPart"
+            }
+          },
+          "6": {
+            "position": {
+              "x": 0,
+              "y": 3,
+              "colSpan": 6,
+              "rowSpan": 6
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "ResourceContainers\r\n| where isnotempty(tags)\r\n| project tags\r\n| mvexpand tags\r\n| extend tagKey = tostring(bag_keys(tags)[0])\r\n| extend tagValue = tostring(tags[tagKey])\r\n| union (\r\n\tresources\r\n\t| where isnotempty(tags)\r\n\t| project tags\r\n\t| mvexpand tags\r\n\t| extend tagKey = tostring(bag_keys(tags)[0])\r\n\t| extend tagValue = tostring(tags[tagKey])\r\n)\r\n| distinct tagKey, tagValue\r\n| where tagKey !startswith \"hidden-\"",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {},
+              "partHeader": {
+                "title": "List of Tag names",
+                "subtitle": ""
+              }
+            }
+          },
+          "7": {
+            "position": {
+              "x": 6,
+              "y": 4,
+              "colSpan": 8,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "Resources\r\n| where type contains 'publicIPAddresses' and isnotempty(properties.ipAddress)\r\n| project properties.ipAddress\r\n| limit 100",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {},
+              "partHeader": {
+                "title": "List Public IPs addresses",
+                "subtitle": ""
+              }
+            }
+          },
+          "8": {
+            "position": {
+              "x": 14,
+              "y": 4,
+              "colSpan": 8,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "Resources\r\n| where type =~ 'microsoft.sql/servers/databases'\r\n| project databaseId = id, databaseName = name, elasticPoolId = tolower(tostring(properties.elasticPoolId))\r\n| join kind=leftouter (\r\n\tResources\r\n\t| where type =~ 'microsoft.sql/servers/elasticpools'\r\n\t| project elasticPoolId = tolower(id), elasticPoolName = name, elasticPoolState = properties.state)\r\n\ton elasticPoolId\r\n| project-away elasticPoolId1",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {},
+              "partHeader": {
+                "title": "List of SQL Databases and elastic pools",
+                "subtitle": ""
+              }
+            }
+          },
+          "9": {
+            "position": {
+              "x": 6,
+              "y": 8,
+              "colSpan": 11,
+              "rowSpan": 5
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "Resources\r\n| where type =~ 'microsoft.network/networkinterfaces'\r\n| project id, ipConfigurations = properties.ipConfigurations\r\n| mvexpand ipConfigurations\r\n| project id, subnetId = tostring(ipConfigurations.properties.subnet.id)\r\n| parse kind=regex subnetId with '/virtualNetworks/' virtualNetwork '/subnets/' subnet\r\n| project id, virtualNetwork, subnet",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {},
+              "partHeader": {
+                "title": "VNets and subnets with network interfaces",
+                "subtitle": ""
+              }
+            }
+          },
+          "10": {
+            "position": {
+              "x": 0,
+              "y": 9,
+              "colSpan": 6,
+              "rowSpan": 6
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "PolicyResources\r\n| where type == 'microsoft.policyinsights/policystates'\r\n| extend complianceState = tostring(properties.complianceState)\r\n| extend resourceLocation = tostring(properties.resourceLocation)\r\n| summarize count() by resourceLocation, complianceState",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {},
+              "partHeader": {
+                "title": "Resource Compliane by state per location",
+                "subtitle": ""
+              }
+            }
+          },
+          "11": {
+            "position": {
+              "x": 6,
+              "y": 13,
+              "colSpan": 11,
+              "rowSpan": 6
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "partTitle",
+                  "value": "Query 1",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "value": {
+                    "scope": 0,
+                    "values": []
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "value": "summarize Count=count() by type, location\r\n| order by Count desc",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {}
+            }
+          },
+          "12": {
+            "position": {
+              "x": 2,
+              "y": 20,
+              "colSpan": 6,
+              "rowSpan": 6
+            },
+            "metadata": {
+              "inputs": [
+                {
+                  "name": "partTitle",
+                  "isOptional": true
+                },
+                {
+                  "name": "query",
+                  "isOptional": true
+                },
+                {
+                  "name": "chartType",
+                  "isOptional": true
+                },
+                {
+                  "name": "isShared",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryId",
+                  "isOptional": true
+                },
+                {
+                  "name": "formatResults",
+                  "isOptional": true
+                },
+                {
+                  "name": "queryScope",
+                  "isOptional": true
+                }
+              ],
+              "type": "Extension/HubsExtension/PartType/ArgQueryGridTile",
+              "settings": {}
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
+            }
+          },
+          "type": "MsPortalFx.Composition.Configuration.ValueTypes.TimeRange"
+        },
+        "filterLocale": {
+          "value": "en-us"
+        },
+        "filters": {
+          "value": {
+            "MsPortalFx_TimeRange": {
+              "model": {
+                "format": "utc",
+                "granularity": "auto",
+                "relative": "24h"
+              },
+              "displayCache": {
+                "name": "UTC Time",
+                "value": "Past 24 hours"
+              },
+              "filteredPartIds": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "name": "Dashboard-Main",
+  "type": "Microsoft.Portal/dashboards",
+  "location": "<TOKEN_LOCATION_REGION>",
+  "tags": {
+    "hidden-title": "Dashboard-Main"
+  },
+  "apiVersion": "2015-08-01-preview"
+}
