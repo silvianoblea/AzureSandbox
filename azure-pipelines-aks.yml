@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: PipelineVariables_Sandbox
+- group: PipelineVarGroup_AzureKubernetes
+
+steps:
+- bash: az --version
+  displayName: 'Show Azure CLI version'
+
+- bash: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases true
+  displayName: 'Set default Azure DevOps organization and project'
+  
+- task: Bash@3
+  displayName: 'Show Filesystem Directory'
+  inputs:
+    targetType: 'inline'
+    script: 'pwd; chmod 775 $(System.DefaultWorkingDirectory)/*.sh; ls -al; '
+
+- task: AzureCLI@2
+  displayName: 'Azure Kubernetes Setup (Bash script)'
+  inputs:
+  # The Azure Resource Manager Connection 
+    azureSubscription: 'AzureServiceConnection'
+    scriptType: 'bash'
+    scriptLocation: 'scriptPath'
+    scriptPath: '$(System.DefaultWorkingDirectory)/AzureKubernetes.sh'
+    arguments:  ' "$(AZ_AD_USER)" "$(AZ_SUBSCRIPTION)" "$(AZ_PREFIX)" "$(AKS_NAME)" "$(AKS_CLUSTER_RG)" "$(AZ_REGION1)" "$(AZ_REGION2)" "$(ACR_NAME)" "$(AZ_LOG_ANALYTICS_NAME)" '
+
+
