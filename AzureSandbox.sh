@@ -417,6 +417,7 @@ echo "Creating Storage Account... ${AZ_STORAGEACCT_NAME}"
 export AZ_STATUS="$(az storage account create \
    --resource-group ${AZ_RG_NAME} --location ${AZ_REGION_PRIMARY} \
    --sku ${AZ_SKU_STORAGE} --name ${AZ_STORAGEACCT_NAME} \
+   --require-infrastructure-encryption true \
    --hns true --query provisioningState)"
 
 # List all the accounts available
